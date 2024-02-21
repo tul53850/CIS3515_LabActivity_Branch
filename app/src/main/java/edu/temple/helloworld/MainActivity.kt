@@ -1,5 +1,6 @@
 package edu.temple.helloworld
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -11,6 +12,7 @@ class MainActivity : AppCompatActivity() {
     // Declare view properties - the first one is done for you
     lateinit var displayTextView: TextView
 
+    @SuppressLint("CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -20,7 +22,10 @@ class MainActivity : AppCompatActivity() {
 
         
         findViewById<Button>(R.id.clickMeButton).setOnClickListener {
-            displayTextView.text = "Hello, ${findViewById<EditText>(R.id.nameEditText).text}"
+            if(findViewById<EditText>(R.id.nameEditText).text.isBlank())
+                findViewById<EditText>(R.id.nameEditText).error = "WTF ENTER NAME FIRST"
+            else
+                displayTextView.text = "Hello, ${findViewById<EditText>(R.id.nameEditText).text}"
         }
 
 
